@@ -1,7 +1,4 @@
-
-full_input = open("./input").read()
-ranges = full_input.split(",")
-
+#Day 2 part 1
 
 # takes single ID string and returns true if ID is bad
 def check_id(ident: str) -> bool:
@@ -15,6 +12,9 @@ def check_id(ident: str) -> bool:
     
 def main():
     print("Running main script")
+    
+    full_input = open("./input").read()
+    ranges = full_input.split(",")
 
     total = 0
     for j in range(len(ranges)):
@@ -27,10 +27,6 @@ def main():
 
     print("total is:")
     print(total)
-
-
-
-
-
+    
 main()
 
