@@ -21,9 +21,9 @@ def main():
         start = int(ranges[j].split("-")[0])
         stop = int(ranges[j].split("-")[1])
 
-        for j in range(start, stop+1):
-            if check_id(str(j)):
-                total += j
+        for i in range(start, stop+1):
+            if check_id(str(i)):
+                total += i
 
     print("total is:")
     print(total)
