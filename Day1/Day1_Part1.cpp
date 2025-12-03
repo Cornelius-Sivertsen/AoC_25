@@ -97,6 +97,7 @@ int main(void) {
   }
 
   cout << "calculated password: " << myDial.getPassword() << endl;
+  cout << "final position: " << myDial.position << endl;
   
   return 0;
 }

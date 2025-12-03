@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 
+// day1 part2
+
 using namespace std;
 
 enum Direction
@@ -11,7 +13,7 @@ enum Direction
   };
 
 class Dial {
-  int calculated_password; //counts times the dial lands on 0
+  int calculated_password; //counts times the dial lands on 0 or moves past 0
   void moveLeft(int); // Moves the dial to the left, wrapping properly at 0
   void moveRight(int); // Moves the dial to the right, wrapping properly at 99
   Direction decodeDirection(string); // Figures out direction to move from an instruction string
@@ -29,18 +31,36 @@ public:
 
 void Dial::moveLeft(int steps){
   int current = this -> position;
-  int turn = steps % 100;
+  int turn = steps;
+
+  bool was_0 = (current == 0);
+
+  while (current - turn < 0){
+    turn -= 100;
+    if (not was_0){
+      this -> calculated_password += 1;
+    }
+    was_0 = false;
+  }
+
+  this -> position = (current - turn);
+  if (this -> position == 0){
+    this -> calculated_password += 1;
+  }
   
-  if (current - turn >= 0){
-    this -> position -= turn;
-  }
-  else{
-    this -> position = 100 - (turn - current);
-  }
 }
 
 void Dial::moveRight(int steps){
-  this -> position = (this -> position + steps) % 100;
+  
+  int current = this -> position;
+  int turn = steps;
+
+  while(current + turn >= 100){
+    turn -= 100;
+    this -> calculated_password +=1;
+  }
+  
+  this -> position = (this -> position + turn);
 }
 
 Direction Dial::decodeDirection(string instruction){
@@ -65,10 +85,10 @@ void Dial::moveDial(string instruction){
      moveRight(steps);
   }
 
-  if (this -> position == 0){
-    this -> calculated_password += 1;
-   }
-}
+  // if (this -> position == 0){
+  //   this -> calculated_password += 1;
+  // }
+ }
 
 int Dial::getPassword(void){
   return this -> calculated_password;
@@ -93,10 +113,14 @@ int main(void) {
   cout << myDial.position << endl;
 
   for (int i = 0; i < operations.size(); i++){
+    cout << "-------------------------" << endl;
     myDial.moveDial(operations[i]);
+    cout << "position after rotation: " << myDial.position << endl;
+    cout << "current password: " << myDial.getPassword() << endl;
   }
 
   cout << "calculated password: " << myDial.getPassword() << endl;
+  cout << "final position: " << myDial.position << endl;
   
   return 0;
 }
