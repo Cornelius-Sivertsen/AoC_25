@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 
+using namespace std;
+
 int main(int argc, char *argv[]){
   string inputFileName;
   if (argc == 1){
@@ -15,10 +17,13 @@ int main(int argc, char *argv[]){
 
   string inputLine;
   ifstream inputFile(inputFileName);
-  vector<string> batteryBanks;
+  vector<string> input;
 
   while (getline(inputFile,inputLine)){
-    batteryBanks.push_back(inputLine);
+    input.push_back(inputLine);
   }
   inputFile.close();
+
+
+  
 }
